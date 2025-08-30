@@ -10,6 +10,8 @@ import weatherSatellite from "@/assets/weather-satellite.jpg";
 import aiWeatherBrain from "@/assets/ai-weather-brain.jpg";
 import weatherAnalytics from "@/assets/weather-analytics.jpg";
 import outdoorActivity from "@/assets/outdoor-activity.jpg";
+import eventFestival from "@/assets/event-festival.jpg";
+import agricultureFarm from "@/assets/agriculture-farm.jpg";
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 const Index = () => {
@@ -149,6 +151,8 @@ const Index = () => {
               const isSelected = selectedProfile === profile.id;
               const getBackgroundImage = (id: string) => {
                 if (id === "outdoor-enthusiast") return outdoorActivity;
+                if (id === "event-planner") return eventFestival;
+                if (id === "farmer") return agricultureFarm;
                 return null;
               };
               const backgroundImage = getBackgroundImage(profile.id);
@@ -287,21 +291,27 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-20">
         <div className="container mx-auto px-6">
-          <Card className="glass-card p-12 text-center max-w-4xl mx-auto border-primary/30">
-            <h2 className="text-3xl font-bold mb-4">Ready for Perfect Weather Planning?</h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Join thousands of users making smarter decisions with AI-powered weather intelligence
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="lg" onClick={() => navigate('/dashboard')}>
-                <Satellite className="w-5 h-5 mr-2" />
-                Start Forecasting
-              </Button>
-              <Button variant="glass" size="lg" onClick={() => navigate('/globe')}>
-                <Globe className="w-5 h-5 mr-2" />
-                Explore Climate
-              </Button>
+          <Card className="glass-card p-12 text-center max-w-4xl mx-auto border-primary/30 relative overflow-hidden">
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-10 hover:opacity-20 transition-opacity duration-300" 
+              style={{ backgroundImage: `url(${weatherAnalytics})` }}
+            />
+            <div className="relative z-10">
+              <h2 className="text-3xl font-bold mb-4">Ready for Perfect Weather Planning?</h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Join thousands of users making smarter decisions with AI-powered weather intelligence
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button variant="hero" size="lg" onClick={() => navigate('/dashboard')}>
+                  <Satellite className="w-5 h-5 mr-2" />
+                  Start Forecasting
+                </Button>
+                <Button variant="glass" size="lg" onClick={() => navigate('/globe')}>
+                  <Globe className="w-5 h-5 mr-2" />
+                  Explore Climate
+                </Button>
+              </div>
             </div>
           </Card>
         </div>
