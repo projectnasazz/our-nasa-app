@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Globe, Map, Users, Zap, Shield, BarChart3, Satellite, Eye, Brain, ChevronRight, Play, Calendar, Mountain, Wheat, Settings, User, MessageSquare, Mic } from "lucide-react";
+import { Globe, Map, Users, Zap, Shield, BarChart3, Satellite, Eye, Brain, ChevronRight, Play, Calendar, Mountain, Wheat, Settings, User, MessageSquare, Mic, LogIn, UserPlus } from "lucide-react";
 import heroWeather from "@/assets/hero-weather.jpg";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
@@ -14,12 +14,18 @@ import eventFestival from "@/assets/event-festival.jpg";
 import agricultureFarm from "@/assets/agriculture-farm.jpg";
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
+import { AuthModal } from "@/components/AuthModal";
+import { UserProfileDropdown } from "@/components/UserProfileDropdown";
+import { useAuth } from "@/contexts/AuthContext";
 const Index = () => {
   console.log("WeatherWise Index component loaded successfully!");
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [selectedProfile, setSelectedProfile] = useState<string>("");
   const [showAIChat, setShowAIChat] = useState(false);
   const [showVoiceChat, setShowVoiceChat] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authModalTab, setAuthModalTab] = useState<'signin' | 'signup'>('signin');
   const userProfiles = [{
     id: "outdoor-enthusiast",
     title: "Outdoor Enthusiast",
@@ -90,13 +96,38 @@ const Index = () => {
                 <Mic className="w-4 h-4 mr-2" />
                 Voice Weather
               </Button>
-              <div className="flex items-center gap-2 bg-sky-400 hover:bg-sky-300">
+              <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon">
                   <Settings className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="bg-sky-400 hover:bg-sky-300">
-                  <User className="w-4 h-4" />
-                </Button>
+                {user ? (
+                  <UserProfileDropdown />
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Button 
+                      variant="glass" 
+                      size="sm" 
+                      onClick={() => {
+                        setAuthModalTab('signin');
+                        setShowAuthModal(true);
+                      }}
+                    >
+                      <LogIn className="w-4 h-4 mr-2" />
+                      Sign In
+                    </Button>
+                    <Button 
+                      variant="cosmic" 
+                      size="sm" 
+                      onClick={() => {
+                        setAuthModalTab('signup');
+                        setShowAuthModal(true);
+                      }}
+                    >
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Sign Up
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -135,6 +166,19 @@ const Index = () => {
                 <Map className="w-5 h-5 mr-2" />
                 Weather Map
               </Button>
+              {!user && (
+                <Button 
+                  variant="cosmic" 
+                  size="lg" 
+                  onClick={() => {
+                    setAuthModalTab('signup');
+                    setShowAuthModal(true);
+                  }}
+                >
+                  <UserPlus className="w-5 h-5 mr-2" />
+                  Get Started
+                </Button>
+              )}
             </div>
           </div>
 
@@ -339,6 +383,13 @@ const Index = () => {
 
       {/* Voice Chat Modal */}
       {showVoiceChat && <VoiceChatSystem onClose={() => setShowVoiceChat(false)} />}
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+        defaultTab={authModalTab}
+      />
     </div>;
 };
 export default Index;
