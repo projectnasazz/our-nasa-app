@@ -6,6 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Globe, Map, Users, Zap, Shield, BarChart3, Satellite, Eye, Brain, ChevronRight, Play, Calendar, Mountain, Wheat, Settings, User, MessageSquare, Mic } from "lucide-react";
 import heroWeather from "@/assets/hero-weather.jpg";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import weatherSatellite from "@/assets/weather-satellite.jpg";
+import aiWeatherBrain from "@/assets/ai-weather-brain.jpg";
+import weatherAnalytics from "@/assets/weather-analytics.jpg";
+import outdoorActivity from "@/assets/outdoor-activity.jpg";
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 const Index = () => {
@@ -143,19 +147,32 @@ const Index = () => {
               {userProfiles.map(profile => {
               const IconComponent = profile.icon;
               const isSelected = selectedProfile === profile.id;
-              return <Card key={profile.id} className={`glass-card p-6 cursor-pointer transition-all duration-500 hover:scale-105 ${isSelected ? 'border-primary shadow-glow' : 'hover:border-accent/50'}`} onClick={() => navigate(`/${profile.id}`)}>
-                    <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${profile.color} flex items-center justify-center shadow-data`}>
-                      <IconComponent className="w-8 h-8 text-white" />
-                    </div>
-                    
-                    <h3 className="text-xl font-semibold mb-2 text-center">{profile.title}</h3>
-                    <p className="text-muted-foreground text-center mb-4 text-sm">{profile.description}</p>
-                    
-                    <div className="space-y-2 mb-6">
-                      {profile.details.map((detail, index) => <div key={index} className="flex items-center text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 rounded-full bg-status-excellent mr-2"></div>
-                          {detail}
-                        </div>)}
+              const getBackgroundImage = (id: string) => {
+                if (id === "outdoor-enthusiast") return outdoorActivity;
+                return null;
+              };
+              const backgroundImage = getBackgroundImage(profile.id);
+              return <Card key={profile.id} className={`glass-card p-6 cursor-pointer transition-all duration-500 hover:scale-105 relative overflow-hidden ${isSelected ? 'border-primary shadow-glow' : 'hover:border-accent/50'}`} onClick={() => navigate(`/${profile.id}`)}>
+                    {backgroundImage && (
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center opacity-10 hover:opacity-20 transition-opacity duration-300" 
+                        style={{ backgroundImage: `url(${backgroundImage})` }}
+                      />
+                    )}
+                    <div className="relative z-10">
+                      <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${profile.color} flex items-center justify-center shadow-data`}>
+                        <IconComponent className="w-8 h-8 text-white" />
+                      </div>
+                      
+                      <h3 className="text-xl font-semibold mb-2 text-center">{profile.title}</h3>
+                      <p className="text-muted-foreground text-center mb-4 text-sm">{profile.description}</p>
+                      
+                      <div className="space-y-2 mb-6">
+                        {profile.details.map((detail, index) => <div key={index} className="flex items-center text-sm text-muted-foreground">
+                            <div className="w-1.5 h-1.5 rounded-full bg-status-excellent mr-2"></div>
+                            {detail}
+                          </div>)}
+                      </div>
                     </div>
                   </Card>;
             })}
@@ -177,8 +194,24 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {features.map((feature, index) => {
             const IconComponent = feature.icon;
-            return <Card key={index} className="glass-card p-8 hover:border-accent/50 transition-all duration-300">
-                  <div className="flex items-start gap-6">
+            const getBackgroundImage = (index: number) => {
+              switch(index) {
+                case 0: return weatherSatellite; // Real-Time Weather Data
+                case 1: return aiWeatherBrain; // AI Weather Predictions
+                case 2: return weatherAnalytics; // Weather Alerts
+                case 3: return weatherAnalytics; // Climate Analytics
+                default: return null;
+              }
+            };
+            const backgroundImage = getBackgroundImage(index);
+            return <Card key={index} className="glass-card p-8 hover:border-accent/50 transition-all duration-300 relative overflow-hidden">
+                  {backgroundImage && (
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center opacity-10 hover:opacity-20 transition-opacity duration-300" 
+                      style={{ backgroundImage: `url(${backgroundImage})` }}
+                    />
+                  )}
+                  <div className="relative z-10 flex items-start gap-6">
                     <div className="w-12 h-12 rounded-xl bg-gradient-earth flex items-center justify-center shadow-data flex-shrink-0">
                       <IconComponent className="w-6 h-6 text-white" />
                     </div>
@@ -204,8 +237,12 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="glass-card p-8 hover:border-accent/50 transition-all duration-300">
-              <div className="flex items-start gap-6">
+            <Card className="glass-card p-8 hover:border-accent/50 transition-all duration-300 relative overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-10 hover:opacity-20 transition-opacity duration-300" 
+                style={{ backgroundImage: `url(${aiWeatherBrain})` }}
+              />
+              <div className="relative z-10 flex items-start gap-6">
                 <div className="w-12 h-12 rounded-xl bg-gradient-aurora flex items-center justify-center shadow-data flex-shrink-0">
                   <MessageSquare className="w-6 h-6 text-white" />
                 </div>
@@ -222,8 +259,12 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="glass-card p-8 hover:border-accent/50 transition-all duration-300">
-              <div className="flex items-start gap-6">
+            <Card className="glass-card p-8 hover:border-accent/50 transition-all duration-300 relative overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-10 hover:opacity-20 transition-opacity duration-300" 
+                style={{ backgroundImage: `url(${weatherSatellite})` }}
+              />
+              <div className="relative z-10 flex items-start gap-6">
                 <div className="w-12 h-12 rounded-xl bg-gradient-safe flex items-center justify-center shadow-data flex-shrink-0">
                   <Mic className="w-6 h-6 text-white" />
                 </div>
