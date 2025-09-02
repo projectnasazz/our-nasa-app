@@ -355,79 +355,160 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-background/30">
-        <div className="container mx-auto px-6">
+      {/* Weather Data Sources */}
+      <section className="py-20 bg-background/30 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5" 
+          style={{ backgroundImage: `url(${weatherSatellite})` }}
+        />
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Trusted by Weather Professionals</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              See how WeatherWise is transforming outdoor planning across industries
+            <h2 className="text-4xl font-bold mb-4">Global Weather Intelligence Network</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Our advanced weather system aggregates data from multiple sources worldwide to deliver the most accurate forecasts
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="glass-card p-6 relative overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center opacity-5" 
-                style={{ backgroundImage: `url(${outdoorActivity})` }}
-              />
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
-                    <Mountain className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Sarah Chen</h4>
-                    <p className="text-sm text-muted-foreground">Adventure Guide</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground italic">
-                  "WeatherWise has revolutionized how I plan hiking expeditions. The UV index and air quality alerts have kept my groups safe in challenging conditions."
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <Card className="glass-card p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-aurora flex items-center justify-center">
+                <Satellite className="w-8 h-8 text-white" />
               </div>
+              <h3 className="text-lg font-semibold mb-2">Weather Satellites</h3>
+              <p className="text-muted-foreground text-sm mb-3">Real-time atmospheric imaging from geostationary and polar orbiting satellites</p>
+              <Badge variant="secondary" className="text-xs">NOAA • GOES • MeteoSat</Badge>
             </Card>
 
-            <Card className="glass-card p-6 relative overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center opacity-5" 
-                style={{ backgroundImage: `url(${eventFestival})` }}
-              />
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
-                    <Calendar className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Marcus Rodriguez</h4>
-                    <p className="text-sm text-muted-foreground">Event Coordinator</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground italic">
-                  "Perfect for outdoor weddings! The 7-day forecasts and guest comfort predictions have saved countless events from weather disasters."
-                </p>
+            <Card className="glass-card p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-earth flex items-center justify-center">
+                <Globe className="w-8 h-8 text-white" />
               </div>
+              <h3 className="text-lg font-semibold mb-2">Ground Stations</h3>
+              <p className="text-muted-foreground text-sm mb-3">Over 40,000 weather monitoring stations across all continents</p>
+              <Badge variant="secondary" className="text-xs">WMO • ASOS • AWOS</Badge>
             </Card>
 
-            <Card className="glass-card p-6 relative overflow-hidden">
-              <div 
-                className="absolute inset-0 bg-cover bg-center opacity-5" 
-                style={{ backgroundImage: `url(${agricultureFarm})` }}
-              />
-              <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
-                    <Wheat className="w-6 h-6 text-white" />
+            <Card className="glass-card p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-safe flex items-center justify-center">
+                <Eye className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Weather Radars</h3>
+              <p className="text-muted-foreground text-sm mb-3">Doppler radar network for precipitation and storm tracking</p>
+              <Badge variant="secondary" className="text-xs">NEXRAD • WSR-88D</Badge>
+            </Card>
+
+            <Card className="glass-card p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-cosmic flex items-center justify-center">
+                <Brain className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">AI Models</h3>
+              <p className="text-muted-foreground text-sm mb-3">Machine learning algorithms processing 30+ years of climate data</p>
+              <Badge variant="secondary" className="text-xs">GFS • ECMWF • AI/ML</Badge>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Technology Stack */}
+      <section className="py-20 relative overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-5" 
+          style={{ backgroundImage: `url(${aiWeatherBrain})` }}
+        />
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            <div>
+              <h2 className="text-4xl font-bold mb-6">Advanced Weather Computing</h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                Powered by cutting-edge meteorological models and artificial intelligence to deliver unprecedented forecast accuracy
+              </p>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-aurora flex items-center justify-center flex-shrink-0">
+                    <Zap className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold">Elena Kowalski</h4>
-                    <p className="text-sm text-muted-foreground">Farm Manager</p>
+                    <h3 className="text-lg font-semibold mb-2">High-Performance Computing</h3>
+                    <p className="text-muted-foreground">Supercomputer clusters processing billions of atmospheric data points every hour</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground italic">
-                  "The precision agriculture insights have increased our crop yields by 23%. Soil moisture predictions are incredibly accurate."
-                </p>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-earth flex items-center justify-center flex-shrink-0">
+                    <Brain className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Machine Learning Pipeline</h3>
+                    <p className="text-muted-foreground">Neural networks trained on decades of weather patterns for predictive accuracy</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-safe flex items-center justify-center flex-shrink-0">
+                    <BarChart3 className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Real-Time Analytics</h3>
+                    <p className="text-muted-foreground">Continuous data fusion and analysis for instant weather insights</p>
+                  </div>
+                </div>
               </div>
-            </Card>
+            </div>
+
+            <div className="space-y-6">
+              <Card className="glass-card p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-cosmic flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">Severe Weather Detection</h3>
+                    <p className="text-sm text-muted-foreground">Advanced storm tracking algorithms</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <p className="text-2xl font-bold text-primary">98.5%</p>
+                    <p className="text-xs text-muted-foreground">Storm Prediction</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-primary">15min</p>
+                    <p className="text-xs text-muted-foreground">Alert Speed</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-primary">24/7</p>
+                    <p className="text-xs text-muted-foreground">Monitoring</p>
+                  </div>
+                </div>
+              </Card>
+
+              <Card className="glass-card p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-aurora flex items-center justify-center">
+                    <Globe className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">Global Coverage</h3>
+                    <p className="text-sm text-muted-foreground">Worldwide weather intelligence</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <p className="text-2xl font-bold text-primary">195</p>
+                    <p className="text-xs text-muted-foreground">Countries</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-primary">1M+</p>
+                    <p className="text-xs text-muted-foreground">Locations</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-bold text-primary">∞</p>
+                    <p className="text-xs text-muted-foreground">Data Points</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
