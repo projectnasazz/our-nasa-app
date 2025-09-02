@@ -29,24 +29,27 @@ const Index = () => {
   const userProfiles = [{
     id: "outdoor-enthusiast",
     title: "Outdoor Enthusiast",
-    description: "Hiking, camping, sports events",
-    details: ["UV Index", "Air Quality", "Wind Conditions"],
+    description: "Perfect conditions for hiking, camping, sports & adventures",
+    details: ["UV Index & Sun Protection", "Air Quality Analysis", "Wind Speed & Direction", "Trail Conditions"],
     icon: Mountain,
-    color: "from-blue-500 to-cyan-500"
+    color: "from-blue-500 to-cyan-500",
+    longDescription: "Whether you're planning a weekend hike, organizing a sports event, or heading out for camping, get detailed atmospheric conditions to ensure your outdoor adventures are safe and enjoyable."
   }, {
     id: "event-planner",
-    title: "Event Planner",
-    description: "Weddings, festivals, gatherings",
-    details: ["Weather Forecast", "Guest Comfort", "Venue Conditions"],
+    title: "Event Planner", 
+    description: "Flawless weather for weddings, festivals & gatherings",
+    details: ["7-Day Detailed Forecast", "Guest Comfort Index", "Venue Weather Conditions", "Backup Plan Alerts"],
     icon: Calendar,
-    color: "from-yellow-500 to-orange-500"
+    color: "from-yellow-500 to-orange-500",
+    longDescription: "Plan perfect outdoor events with confidence. Get precise weather predictions, guest comfort analysis, and timely alerts to ensure your special occasions go off without a hitch."
   }, {
     id: "farmer",
     title: "Agriculture",
-    description: "Farming, gardening, crops",
-    details: ["Soil Moisture", "Rainfall", "Temperature"],
+    description: "Smart farming with precise weather & soil insights", 
+    details: ["Soil Moisture Levels", "Rainfall Predictions", "Growing Degree Days", "Frost Warnings"],
     icon: Wheat,
-    color: "from-green-500 to-emerald-500"
+    color: "from-green-500 to-emerald-500",
+    longDescription: "Optimize your farming operations with precision agriculture insights. Monitor soil conditions, predict optimal planting times, and protect your crops with advanced weather analytics."
   }];
   const features = [{
     icon: Satellite,
@@ -153,9 +156,29 @@ const Index = () => {
               </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-foreground/90 mb-12 max-w-4xl mx-auto font-medium mt-8">
+            <p className="text-xl md:text-2xl text-foreground/90 mb-8 max-w-4xl mx-auto font-medium mt-8">
               Advanced weather forecasting and climate intelligence for smarter outdoor decisions and perfect planning
             </p>
+            
+            {/* Weather Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
+              <div className="glass-card p-4 text-center">
+                <p className="text-2xl font-bold text-primary">99.8%</p>
+                <p className="text-sm text-muted-foreground">Forecast Accuracy</p>
+              </div>
+              <div className="glass-card p-4 text-center">
+                <p className="text-2xl font-bold text-primary">24/7</p>
+                <p className="text-sm text-muted-foreground">Real-time Updates</p>
+              </div>
+              <div className="glass-card p-4 text-center">
+                <p className="text-2xl font-bold text-primary">50K+</p>
+                <p className="text-sm text-muted-foreground">Active Users</p>
+              </div>
+              <div className="glass-card p-4 text-center">
+                <p className="text-2xl font-bold text-primary">15+</p>
+                <p className="text-sm text-muted-foreground">Weather Sources</p>
+              </div>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <Button variant="hero" size="lg" onClick={() => navigate('/dashboard')}>
@@ -326,6 +349,83 @@ const Index = () => {
                     <ChevronRight className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 bg-background/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">Trusted by Weather Professionals</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              See how WeatherWise is transforming outdoor planning across industries
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <Card className="glass-card p-6 relative overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-5" 
+                style={{ backgroundImage: `url(${outdoorActivity})` }}
+              />
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                    <Mountain className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Sarah Chen</h4>
+                    <p className="text-sm text-muted-foreground">Adventure Guide</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground italic">
+                  "WeatherWise has revolutionized how I plan hiking expeditions. The UV index and air quality alerts have kept my groups safe in challenging conditions."
+                </p>
+              </div>
+            </Card>
+
+            <Card className="glass-card p-6 relative overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-5" 
+                style={{ backgroundImage: `url(${eventFestival})` }}
+              />
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center">
+                    <Calendar className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Marcus Rodriguez</h4>
+                    <p className="text-sm text-muted-foreground">Event Coordinator</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground italic">
+                  "Perfect for outdoor weddings! The 7-day forecasts and guest comfort predictions have saved countless events from weather disasters."
+                </p>
+              </div>
+            </Card>
+
+            <Card className="glass-card p-6 relative overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-5" 
+                style={{ backgroundImage: `url(${agricultureFarm})` }}
+              />
+              <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+                    <Wheat className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Elena Kowalski</h4>
+                    <p className="text-sm text-muted-foreground">Farm Manager</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground italic">
+                  "The precision agriculture insights have increased our crop yields by 23%. Soil moisture predictions are incredibly accurate."
+                </p>
               </div>
             </Card>
           </div>
