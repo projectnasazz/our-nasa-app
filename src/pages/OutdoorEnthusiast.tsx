@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mountain, Thermometer, Wind, Sun, Droplets, ArrowLeft, MapPin, Calendar, TrendingUp } from "lucide-react";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import outdoorActivity from "@/assets/outdoor-activity.jpg";
+import heroWeather from "@/assets/hero-weather.jpg";
 
 const OutdoorEnthusiast = () => {
   const weatherMetrics = [
@@ -58,7 +60,12 @@ const OutdoorEnthusiast = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-8" 
+        style={{ backgroundImage: `url(${outdoorActivity})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
       {/* Navigation */}
       <nav className="border-b border-border/10 bg-background/90 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,7 +95,7 @@ const OutdoorEnthusiast = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8">
+      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-full mb-6">
@@ -154,7 +161,11 @@ const OutdoorEnthusiast = () => {
               <h2 className="text-3xl font-bold text-foreground mb-6">
                 Location-Based Insights
               </h2>
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10" 
+                  style={{ backgroundImage: `url(${heroWeather})` }}
+                />
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <MapPin className="h-5 w-5 text-weather-sky" />

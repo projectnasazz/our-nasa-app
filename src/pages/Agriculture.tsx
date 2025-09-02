@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Wheat, Droplets, Thermometer, Sprout, ArrowLeft, MapPin, Calendar, TrendingUp, AlertTriangle } from "lucide-react";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import agricultureFarm from "@/assets/agriculture-farm.jpg";
+import weatherSatellite from "@/assets/weather-satellite.jpg";
 
 const Agriculture = () => {
   const farmMetrics = [
@@ -71,7 +73,12 @@ const Agriculture = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-8" 
+        style={{ backgroundImage: `url(${agricultureFarm})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
       {/* Navigation */}
       <nav className="border-b border-border/10 bg-background/90 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,7 +108,7 @@ const Agriculture = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8">
+      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-full mb-6">
@@ -167,8 +174,12 @@ const Agriculture = () => {
               <h2 className="text-3xl font-bold text-foreground mb-6">
                 7-Day Farming Forecast
               </h2>
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardContent className="p-6">
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10" 
+                  style={{ backgroundImage: `url(${weatherSatellite})` }}
+                />
+                <CardContent className="p-6 relative z-10">
                   <div className="space-y-3">
                     {weeklyForecast.map((day, index) => (
                       <div key={index} className="flex items-center justify-between p-3 bg-background/50 rounded-lg">

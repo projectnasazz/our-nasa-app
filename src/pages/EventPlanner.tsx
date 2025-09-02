@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Users, Tent, Thermometer, Cloud, ArrowLeft, MapPin, Clock, CheckCircle } from "lucide-react";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import eventFestival from "@/assets/event-festival.jpg";
+import weatherAnalytics from "@/assets/weather-analytics.jpg";
 
 const EventPlanner = () => {
   const eventMetrics = [
@@ -82,7 +84,12 @@ const EventPlanner = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-8" 
+        style={{ backgroundImage: `url(${eventFestival})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
       {/* Navigation */}
       <nav className="border-b border-border/10 bg-background/90 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,7 +119,7 @@ const EventPlanner = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8">
+      <section className="pt-16 pb-24 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-primary rounded-full mb-6">
@@ -178,8 +185,8 @@ const EventPlanner = () => {
               <h2 className="text-3xl font-bold text-foreground mb-6">
                 Weather Insights
               </h2>
-              <div className="space-y-4">
-                {weatherTips.map((tip, index) => (
+                <div className="space-y-4 relative z-10">
+                  {weatherTips.map((tip, index) => (
                   <Card key={index} className="border-border/20 bg-card/50 backdrop-blur-sm">
                     <CardHeader className="pb-3">
                       <CardTitle className="flex items-center space-x-2 text-lg">

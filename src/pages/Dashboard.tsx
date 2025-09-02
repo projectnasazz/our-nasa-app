@@ -28,6 +28,9 @@ import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { InteractiveMap } from "@/components/InteractiveMap";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import weatherAnalytics from "@/assets/weather-analytics.jpg";
+import weatherSatellite from "@/assets/weather-satellite.jpg";
+import aiWeatherBrain from "@/assets/ai-weather-brain.jpg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -121,7 +124,11 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-5" 
+        style={{ backgroundImage: `url(${weatherAnalytics})` }}
+      />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 glass-panel border-b border-white/10">
         <div className="container mx-auto px-6 py-4">
@@ -160,7 +167,7 @@ const Dashboard = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="pt-20 p-6">
+      <div className="pt-20 p-6 relative z-10">
         <div className="container mx-auto space-y-8">
           
           {/* Header */}
@@ -213,20 +220,31 @@ const Dashboard = () => {
             
             {/* Map Preview */}
             <div className="lg:col-span-2 space-y-6">
-              <Card className="glass-card p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-semibold">Environmental Map</h2>
-                  <Button variant="cosmic" size="sm" onClick={() => navigate('/map')}>
-                    View Full Map
-                  </Button>
+              <Card className="glass-card p-6 relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10" 
+                  style={{ backgroundImage: `url(${weatherSatellite})` }}
+                />
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-xl font-semibold">Environmental Map</h2>
+                    <Button variant="cosmic" size="sm" onClick={() => navigate('/map')}>
+                      View Full Map
+                    </Button>
+                  </div>
+                  <InteractiveMap className="h-64" />
                 </div>
-                <InteractiveMap className="h-64" />
               </Card>
 
               {/* AI Recommendations */}
-              <Card className="glass-card p-6">
-                <h2 className="text-xl font-semibold mb-4">AI Recommendations</h2>
-                <div className="space-y-4">
+              <Card className="glass-card p-6 relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-8" 
+                  style={{ backgroundImage: `url(${aiWeatherBrain})` }}
+                />
+                <div className="relative z-10">
+                  <h2 className="text-xl font-semibold mb-4">AI Recommendations</h2>
+                  <div className="space-y-4">
                   {recommendations.map((rec, index) => (
                     <div key={index} className="p-4 bg-background/30 rounded-lg border border-white/10">
                       <div className="flex items-start justify-between mb-2">
@@ -246,6 +264,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   ))}
+                  </div>
                 </div>
               </Card>
             </div>

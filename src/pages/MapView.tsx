@@ -15,6 +15,8 @@ import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { Input } from "@/components/ui/input";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import weatherSatellite from "@/assets/weather-satellite.jpg";
+import heroEarth from "@/assets/hero-earth.jpg";
 
 const MapView = () => {
   const navigate = useNavigate();
@@ -23,7 +25,11 @@ const MapView = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-5" 
+        style={{ backgroundImage: `url(${heroEarth})` }}
+      />
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-40 glass-panel border-b border-white/10">
         <div className="container mx-auto px-6 py-4">
@@ -67,7 +73,7 @@ const MapView = () => {
       </nav>
 
       {/* Main Content */}
-      <div className="pt-20 p-6">
+      <div className="pt-20 p-6 relative z-10">
         <div className="container mx-auto">
           <div className="mb-6">
             <h1 className="text-3xl font-bold mb-2">Interactive Environmental Map</h1>
@@ -84,24 +90,30 @@ const MapView = () => {
 
             {/* Sidebar */}
             <div className="space-y-6">
-              <Card className="glass-card p-6">
-                <h3 className="font-semibold mb-4">Environmental Layers</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Temperature</span>
-                    <div className="w-16 h-2 bg-gradient-to-r from-blue-500 to-red-500 rounded" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Air Quality</span>
-                    <div className="w-16 h-2 bg-gradient-to-r from-green-500 to-red-500 rounded" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">Precipitation</span>
-                    <div className="w-16 h-2 bg-gradient-to-r from-gray-300 to-blue-600 rounded" />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm">UV Index</span>
-                    <div className="w-16 h-2 bg-gradient-to-r from-green-400 to-red-500 rounded" />
+              <Card className="glass-card p-6 relative overflow-hidden">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10" 
+                  style={{ backgroundImage: `url(${weatherSatellite})` }}
+                />
+                <div className="relative z-10">
+                  <h3 className="font-semibold mb-4">Environmental Layers</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Temperature</span>
+                      <div className="w-16 h-2 bg-gradient-to-r from-blue-500 to-red-500 rounded" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Air Quality</span>
+                      <div className="w-16 h-2 bg-gradient-to-r from-green-500 to-red-500 rounded" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Precipitation</span>
+                      <div className="w-16 h-2 bg-gradient-to-r from-gray-300 to-blue-600 rounded" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">UV Index</span>
+                      <div className="w-16 h-2 bg-gradient-to-r from-green-400 to-red-500 rounded" />
+                    </div>
                   </div>
                 </div>
               </Card>
