@@ -1,4 +1,28 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { auth } from '@/lib/firebase';
+
+// Conditionally import Firebase functions only if auth is available
+let signInWithEmailAndPassword: any = null;
+let createUserWithEmailAndPassword: any = null;
+let signInWithPopup: any = null;
+let GoogleAuthProvider: any = null;
+let FacebookAuthProvider: any = null;
+let firebaseSignOut: any = null;
+let onAuthStateChanged: any = null;
+let sendPasswordResetEmail: any = null;
+
+if (auth) {
+  import('firebase/auth').then((firebaseAuth) => {
+    signInWithEmailAndPassword = firebaseAuth.signInWithEmailAndPassword;
+    createUserWithEmailAndPassword = firebaseAuth.createUserWithEmailAndPassword;
+    signInWithPopup = firebaseAuth.signInWithPopup;
+    GoogleAuthProvider = firebaseAuth.GoogleAuthProvider;
+    FacebookAuthProvider = firebaseAuth.FacebookAuthProvider;
+    firebaseSignOut = firebaseAuth.signOut;
+    onAuthStateChanged = firebaseAuth.onAuthStateChanged;
+    sendPasswordResetEmail = firebaseAuth.sendPasswordResetEmail;
+  });
+}
 
 interface User {
   uid: string;
@@ -37,29 +61,55 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing user session
-    const savedUser = localStorage.getItem('weatherwise_user');
-    if (savedUser) {
-      setUser(JSON.parse(savedUser));
+    if (auth && onAuthStateChanged) {
+      // Use Firebase authentication
+      const unsubscribe = onAuthStateChanged(auth, (firebaseUser: any) => {
+        if (firebaseUser) {
+          setUser({
+            uid: firebaseUser.uid,
+            email: firebaseUser.email,
+            displayName: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+          });
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      });
+
+      return unsubscribe;
+    } else {
+      // Use mock authentication
+      const savedUser = localStorage.getItem('weatherwise_user');
+      if (savedUser) {
+        setUser(JSON.parse(savedUser));
+      }
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
       setLoading(true);
-      // Simulate Firebase authentication
-      const mockUser: User = {
-        uid: 'mock-uid-' + Date.now(),
-        email,
-        displayName: email.split('@')[0],
-        photoURL: null,
-      };
       
-      setUser(mockUser);
-      localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
-    } catch (error) {
-      throw new Error('Failed to sign in');
+      if (auth && signInWithEmailAndPassword) {
+        // Use Firebase authentication
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        return result;
+      } else {
+        // Use mock authentication
+        const mockUser: User = {
+          uid: 'mock-uid-' + Date.now(),
+          email,
+          displayName: email.split('@')[0],
+          photoURL: null,
+        };
+        
+        setUser(mockUser);
+        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to sign in');
     } finally {
       setLoading(false);
     }
@@ -68,18 +118,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signUp = async (email: string, password: string, displayName: string) => {
     try {
       setLoading(true);
-      // Simulate Firebase authentication
-      const mockUser: User = {
-        uid: 'mock-uid-' + Date.now(),
-        email,
-        displayName,
-        photoURL: null,
-      };
       
-      setUser(mockUser);
-      localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
-    } catch (error) {
-      throw new Error('Failed to sign up');
+      if (auth && createUserWithEmailAndPassword) {
+        // Use Firebase authentication
+        const result = await createUserWithEmailAndPassword(auth, email, password);
+        return result;
+      } else {
+        // Use mock authentication
+        const mockUser: User = {
+          uid: 'mock-uid-' + Date.now(),
+          email,
+          displayName,
+          photoURL: null,
+        };
+        
+        setUser(mockUser);
+        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to sign up');
     } finally {
       setLoading(false);
     }
@@ -88,18 +145,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signInWithGoogle = async () => {
     try {
       setLoading(true);
-      // Simulate Google authentication
-      const mockUser: User = {
-        uid: 'google-uid-' + Date.now(),
-        email: 'user@gmail.com',
-        displayName: 'Google User',
-        photoURL: 'https://via.placeholder.com/150',
-      };
       
-      setUser(mockUser);
-      localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
-    } catch (error) {
-      throw new Error('Failed to sign in with Google');
+      if (auth && signInWithPopup && GoogleAuthProvider) {
+        // Use Firebase authentication
+        const provider = new GoogleAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        return result;
+      } else {
+        // Use mock authentication
+        const mockUser: User = {
+          uid: 'google-uid-' + Date.now(),
+          email: 'user@gmail.com',
+          displayName: 'Google User',
+          photoURL: 'https://via.placeholder.com/150',
+        };
+        
+        setUser(mockUser);
+        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to sign in with Google');
     } finally {
       setLoading(false);
     }
@@ -108,18 +173,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signInWithFacebook = async () => {
     try {
       setLoading(true);
-      // Simulate Facebook authentication
-      const mockUser: User = {
-        uid: 'facebook-uid-' + Date.now(),
-        email: 'user@facebook.com',
-        displayName: 'Facebook User',
-        photoURL: 'https://via.placeholder.com/150',
-      };
       
-      setUser(mockUser);
-      localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
-    } catch (error) {
-      throw new Error('Failed to sign in with Facebook');
+      if (auth && signInWithPopup && FacebookAuthProvider) {
+        // Use Firebase authentication
+        const provider = new FacebookAuthProvider();
+        const result = await signInWithPopup(auth, provider);
+        return result;
+      } else {
+        // Use mock authentication
+        const mockUser: User = {
+          uid: 'facebook-uid-' + Date.now(),
+          email: 'user@facebook.com',
+          displayName: 'Facebook User',
+          photoURL: 'https://via.placeholder.com/150',
+        };
+        
+        setUser(mockUser);
+        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to sign in with Facebook');
     } finally {
       setLoading(false);
     }
@@ -128,10 +201,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signOut = async () => {
     try {
       setLoading(true);
-      setUser(null);
-      localStorage.removeItem('weatherwise_user');
-    } catch (error) {
-      throw new Error('Failed to sign out');
+      
+      if (auth && firebaseSignOut) {
+        // Use Firebase authentication
+        await firebaseSignOut(auth);
+      } else {
+        // Use mock authentication
+        setUser(null);
+        localStorage.removeItem('weatherwise_user');
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to sign out');
     } finally {
       setLoading(false);
     }
@@ -140,10 +220,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const resetPassword = async (email: string) => {
     try {
       setLoading(true);
-      // Simulate password reset
-      console.log('Password reset email sent to:', email);
-    } catch (error) {
-      throw new Error('Failed to reset password');
+      
+      if (auth && sendPasswordResetEmail) {
+        // Use Firebase authentication
+        await sendPasswordResetEmail(auth, email);
+      } else {
+        // Use mock authentication
+        console.log('Password reset email sent to:', email);
+      }
+    } catch (error: any) {
+      throw new Error(error.message || 'Failed to reset password');
     } finally {
       setLoading(false);
     }

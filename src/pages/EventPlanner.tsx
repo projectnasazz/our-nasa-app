@@ -85,11 +85,13 @@ const EventPlanner = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-8" 
         style={{ backgroundImage: `url(${eventFestival})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
+      
       {/* Navigation */}
       <nav className="border-b border-border/10 bg-background/90 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -185,8 +187,8 @@ const EventPlanner = () => {
               <h2 className="text-3xl font-bold text-foreground mb-6">
                 Weather Insights
               </h2>
-                <div className="space-y-4 relative z-10">
-                  {weatherTips.map((tip, index) => (
+              <div className="space-y-4 relative z-10">
+                {weatherTips.map((tip, index) => (
                   <Card key={index} className="border-border/20 bg-card/50 backdrop-blur-sm">
                     <CardHeader className="pb-3">
                       <CardTitle className="flex items-center space-x-2 text-lg">
@@ -207,49 +209,67 @@ const EventPlanner = () => {
               Event Planning Tools
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <MapPin className="h-5 w-5 text-weather-sky" />
-                    <span>Venue Weather</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Specific forecasts for your event locations
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full">Check Venue Conditions</Button>
-                </CardContent>
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${eventFestival})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <MapPin className="h-5 w-5 text-weather-sky" />
+                      <span>Venue Weather</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Specific forecasts for your event locations
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Check Venue Conditions</Button>
+                  </CardContent>
+                </div>
               </Card>
 
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Clock className="h-5 w-5 text-weather-sunny" />
-                    <span>Timeline Optimizer</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Perfect timing based on weather patterns
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full">Optimize Schedule</Button>
-                </CardContent>
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${eventFestival})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Clock className="h-5 w-5 text-weather-sunny" />
+                      <span>Timeline Optimizer</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Perfect timing based on weather patterns
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Optimize Schedule</Button>
+                  </CardContent>
+                </div>
               </Card>
 
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Users className="h-5 w-5 text-weather-ocean" />
-                    <span>Guest Comfort</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Ensure optimal conditions for attendees
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full">Comfort Analysis</Button>
-                </CardContent>
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${eventFestival})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Users className="h-5 w-5 text-weather-ocean" />
+                      <span>Guest Comfort</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Ensure optimal conditions for attendees
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Comfort Analysis</Button>
+                  </CardContent>
+                </div>
               </Card>
             </div>
           </div>

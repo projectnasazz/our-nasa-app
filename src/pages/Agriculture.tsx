@@ -74,11 +74,13 @@ const Agriculture = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-8" 
         style={{ backgroundImage: `url(${agricultureFarm})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
+      
       {/* Navigation */}
       <nav className="border-b border-border/10 bg-background/90 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -209,49 +211,67 @@ const Agriculture = () => {
               Smart Farming Tools
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Droplets className="h-5 w-5 text-weather-ocean" />
-                    <span>Irrigation Planner</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Smart watering schedules based on soil moisture and rainfall
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full">Plan Irrigation</Button>
-                </CardContent>
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${agricultureFarm})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Droplets className="h-5 w-5 text-weather-ocean" />
+                      <span>Irrigation Planner</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Smart watering schedules based on soil moisture and rainfall
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Plan Irrigation</Button>
+                  </CardContent>
+                </div>
               </Card>
 
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Wheat className="h-5 w-5 text-weather-sunny" />
-                    <span>Harvest Optimizer</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Optimal timing for harvesting based on weather patterns
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full">Check Harvest Time</Button>
-                </CardContent>
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${agricultureFarm})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Wheat className="h-5 w-5 text-weather-sunny" />
+                      <span>Harvest Optimizer</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Optimal timing for harvesting based on weather patterns
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Check Harvest Time</Button>
+                  </CardContent>
+                </div>
               </Card>
 
-              <Card className="border-border/20 bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Sprout className="h-5 w-5 text-green-500" />
-                    <span>Crop Health Monitor</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Disease prevention and growth optimization insights
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button className="w-full">Monitor Crops</Button>
-                </CardContent>
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${agricultureFarm})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Sprout className="h-5 w-5 text-green-500" />
+                      <span>Crop Health Monitor</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Disease prevention and growth optimization insights
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Monitor Crops</Button>
+                  </CardContent>
+                </div>
               </Card>
             </div>
           </div>

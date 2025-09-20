@@ -61,11 +61,13 @@ const OutdoorEnthusiast = () => {
 
   return (
     <div className="min-h-screen bg-gradient-subtle relative overflow-hidden">
+      {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-8" 
         style={{ backgroundImage: `url(${outdoorActivity})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/95" />
+      
       {/* Navigation */}
       <nav className="border-b border-border/10 bg-background/90 backdrop-blur-lg sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -191,6 +193,77 @@ const OutdoorEnthusiast = () => {
                     </div>
                   </div>
                 </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Outdoor Activity Showcase */}
+          <div className="mb-16">
+            <h2 className="text-3xl font-bold text-foreground mb-6 text-center">
+              Outdoor Adventures Await
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${outdoorActivity})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Mountain className="h-5 w-5 text-weather-sunny" />
+                      <span>Hiking & Trekking</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Perfect trails with optimal weather conditions
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Find Trails</Button>
+                  </CardContent>
+                </div>
+              </Card>
+
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${outdoorActivity})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Sun className="h-5 w-5 text-weather-sunny" />
+                      <span>Camping & Outdoors</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Ideal camping weather and site recommendations
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Camping Guide</Button>
+                  </CardContent>
+                </div>
+              </Card>
+
+              <Card className="border-border/20 bg-card/50 backdrop-blur-sm relative overflow-hidden group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-10 group-hover:opacity-20 transition-opacity duration-300"
+                  style={{ backgroundImage: `url(${outdoorActivity})` }}
+                />
+                <div className="relative z-10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center space-x-2">
+                      <Wind className="h-5 w-5 text-weather-sky" />
+                      <span>Adventure Sports</span>
+                    </CardTitle>
+                    <CardDescription>
+                      Weather-optimized adventure activities
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <Button className="w-full">Adventure Planner</Button>
+                  </CardContent>
+                </div>
               </Card>
             </div>
           </div>
