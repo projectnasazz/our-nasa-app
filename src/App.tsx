@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import MapView from "./pages/MapView";
 import Dashboard from "./pages/Dashboard";
+import Globe from "./pages/Globe";
 import NotFound from "./pages/NotFound";
 import OutdoorEnthusiast from "./pages/OutdoorEnthusiast";
 import EventPlanner from "./pages/EventPlanner";
@@ -25,7 +26,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/map" element={<MapView />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/globe" element={<Dashboard />} />
+            <Route path="/globe" element={<Globe />} />
             <Route path="/outdoor-enthusiast" element={<OutdoorEnthusiast />} />
             <Route path="/event-planner" element={<EventPlanner />} />
             <Route path="/farmer" element={<Agriculture />} />

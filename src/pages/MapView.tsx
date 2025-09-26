@@ -11,6 +11,7 @@ import {
   Search
 } from "lucide-react";
 import { InteractiveMap } from "@/components/InteractiveMap";
+import { WeatherMap } from "@/components/WeatherMap";
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { Input } from "@/components/ui/input";
@@ -83,9 +84,10 @@ const MapView = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Map */}
-            <div className="lg:col-span-3">
-              <InteractiveMap className="h-[70vh]" />
+            {/* Maps */}
+            <div className="lg:col-span-3 space-y-6">
+              <WeatherMap className="h-auto" />
+              <InteractiveMap className="h-[50vh]" />
             </div>
 
             {/* Sidebar */}
