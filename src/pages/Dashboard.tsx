@@ -27,6 +27,10 @@ import {
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { InteractiveMap } from "@/components/InteractiveMap";
+import { LoadingSkeleton } from "@/components/LoadingSkeleton";
+import { WeatherChart } from "@/components/WeatherChart";
+import { StatusIndicator, NetworkStatus } from "@/components/StatusIndicator";
+import { ParticleField, AnimatedGradient } from "@/components/VisualEffects";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
 import weatherAnalytics from "@/assets/weather-analytics.jpg";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
@@ -37,6 +41,16 @@ const Dashboard = () => {
   const [showAIChat, setShowAIChat] = useState(false);
   const [showVoiceChat, setShowVoiceChat] = useState(false);
   const [selectedProfile, setSelectedProfile] = useState("outdoor-enthusiast");
+
+  // Sample weather data for charts
+  const weatherData = [
+    { time: '6 AM', temperature: 65, humidity: 75, airQuality: 42, uvIndex: 1, precipitation: 0 },
+    { time: '9 AM', temperature: 68, humidity: 70, airQuality: 38, uvIndex: 3, precipitation: 5 },
+    { time: '12 PM', temperature: 72, humidity: 55, airQuality: 35, uvIndex: 6, precipitation: 10 },
+    { time: '3 PM', temperature: 75, humidity: 50, airQuality: 40, uvIndex: 8, precipitation: 15 },
+    { time: '6 PM', temperature: 70, humidity: 60, airQuality: 45, uvIndex: 4, precipitation: 8 },
+    { time: '9 PM', temperature: 66, humidity: 70, airQuality: 38, uvIndex: 1, precipitation: 2 }
+  ];
 
   const environmentalMetrics = [
     {
@@ -188,9 +202,9 @@ const Dashboard = () => {
             {environmentalMetrics.map((metric, index) => {
               const IconComponent = metric.icon;
               return (
-                <Card key={index} className="glass-card p-6">
+                <Card key={index} className="glass-card p-6 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`w-10 h-10 rounded-lg bg-gradient-earth flex items-center justify-center`}>
+                    <div className={`w-10 h-10 rounded-lg bg-gradient-earth flex items-center justify-center hover:scale-110 transition-transform duration-300`}>
                       <IconComponent className="w-5 h-5 text-white" />
                     </div>
                     <div className={`flex items-center gap-1 ${
@@ -204,7 +218,7 @@ const Dashboard = () => {
                   <div className="space-y-2">
                     <p className="text-sm text-muted-foreground">{metric.label}</p>
                     <div className="flex items-end gap-2">
-                      <span className="text-2xl font-bold">{metric.value}</span>
+                      <span className="text-2xl font-bold bg-gradient-aurora bg-clip-text text-transparent">{metric.value}</span>
                       {metric.unit && <span className="text-sm text-muted-foreground mb-1">{metric.unit}</span>}
                     </div>
                     <Badge variant="secondary" className="text-xs">
@@ -218,46 +232,72 @@ const Dashboard = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            {/* Map Preview */}
+            {/* Charts and Data Visualization */}
             <div className="lg:col-span-2 space-y-6">
+              {/* Weather Charts */}
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                <WeatherChart 
+                  type="temperature"
+                  data={weatherData}
+                  title="Temperature Trends"
+                />
+                <WeatherChart 
+                  type="air-quality"
+                  data={weatherData}
+                  title="Air Quality Index"
+                />
+              </div>
+              
+              <WeatherChart 
+                type="multi-metric"
+                data={weatherData}
+                title="Environmental Overview"
+              />
+              
+              {/* Map Preview */}
               <Card className="glass-card p-6 relative overflow-hidden">
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-10" 
                   style={{ backgroundImage: `url(${weatherSatellite})` }}
                 />
+                <AnimatedGradient variant="ocean" className="opacity-20" />
                 <div className="relative z-10">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-semibold">Environmental Map</h2>
-                    <Button variant="cosmic" size="sm" onClick={() => navigate('/map')}>
-                      View Full Map
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <NetworkStatus />
+                      <Button variant="cosmic" size="sm" onClick={() => navigate('/map')}>
+                        View Full Map
+                      </Button>
+                    </div>
                   </div>
                   <InteractiveMap className="h-64" />
                 </div>
               </Card>
-
+              
               {/* AI Recommendations */}
               <Card className="glass-card p-6 relative overflow-hidden">
                 <div 
                   className="absolute inset-0 bg-cover bg-center opacity-8" 
                   style={{ backgroundImage: `url(${aiWeatherBrain})` }}
                 />
+                <ParticleField className="opacity-30" particleCount={30} />
                 <div className="relative z-10">
                   <h2 className="text-xl font-semibold mb-4">AI Recommendations</h2>
                   <div className="space-y-4">
                   {recommendations.map((rec, index) => (
-                    <div key={index} className="p-4 bg-background/30 rounded-lg border border-white/10">
+                    <div key={index} className="p-4 bg-background/30 rounded-lg border border-white/10 hover:bg-background/40 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="font-semibold">{rec.title}</h3>
                           <p className="text-sm text-muted-foreground">{rec.type}</p>
                         </div>
-                        <Badge variant="default">Score: {rec.score}/100</Badge>
+                        <Badge variant="default" className="bg-gradient-aurora">Score: {rec.score}/100</Badge>
                       </div>
                       <div className="space-y-1">
                         {rec.reasons.map((reason, i) => (
                           <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <div className="w-1.5 h-1.5 rounded-full bg-status-excellent" />
+                            <StatusIndicator status="excellent" variant="dot" size="sm" />
                             {reason}
                           </div>
                         ))}
@@ -274,10 +314,13 @@ const Dashboard = () => {
               
               {/* Alerts */}
               <Card className="glass-card p-6">
-                <h2 className="text-xl font-semibold mb-4">Environmental Alerts</h2>
+                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                  Environmental Alerts
+                  <StatusIndicator status="online" variant="dot" size="sm" />
+                </h2>
                 <div className="space-y-4">
-                  {alerts.map((alert) => (
-                    <div key={alert.id} className="flex gap-3 p-3 bg-background/30 rounded-lg border border-white/10">
+                  {alerts.map((alert, index) => (
+                    <div key={alert.id} className="flex gap-3 p-3 bg-background/30 rounded-lg border border-white/10 hover:bg-background/40 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                       <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
                         alert.type === 'warning' ? 'bg-status-moderate' :
                         alert.type === 'success' ? 'bg-status-excellent' :
