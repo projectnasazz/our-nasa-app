@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { OrbitControls, Stars, Html } from '@react-three/drei';
+import React, { useRef, useEffect, useState, Suspense } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { OrbitControls, Stars } from '@react-three/drei';
 import * as THREE from 'three';
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -35,41 +35,6 @@ interface Globe3DProps {
 const EarthGlobe = () => {
   const meshRef = useRef<THREE.Mesh>(null);
   const atmosphereRef = useRef<THREE.Mesh>(null);
-  const { scene } = useThree();
-
-  // Create earth texture with procedural generation
-  const earthTexture = new THREE.DataTexture(
-    new Uint8Array(512 * 512 * 3),
-    512,
-    512,
-    THREE.RGBFormat
-  );
-  
-  // Generate procedural earth-like texture
-  const data = earthTexture.image.data;
-  for (let i = 0; i < data.length; i += 3) {
-    const x = (i / 3) % 512;
-    const y = Math.floor((i / 3) / 512);
-    const lat = (y / 512) * Math.PI - Math.PI / 2;
-    const lon = (x / 512) * Math.PI * 2 - Math.PI;
-    
-    // Simple land/ocean generation
-    const noise = Math.sin(lat * 4) * Math.cos(lon * 6) + 
-                  Math.sin(lat * 8) * Math.cos(lon * 3) * 0.5;
-    
-    if (noise > 0.1) {
-      // Land - brown/green
-      data[i] = 34 + Math.random() * 40;     // R
-      data[i + 1] = 80 + Math.random() * 60;   // G
-      data[i + 2] = 20 + Math.random() * 30;   // B
-    } else {
-      // Ocean - blue
-      data[i] = 20 + Math.random() * 20;       // R
-      data[i + 1] = 50 + Math.random() * 30;   // G
-      data[i + 2] = 120 + Math.random() * 60;  // B
-    }
-  }
-  earthTexture.needsUpdate = true;
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -85,7 +50,7 @@ const EarthGlobe = () => {
       {/* Earth sphere */}
       <mesh ref={meshRef}>
         <sphereGeometry args={[2, 64, 32]} />
-        <meshPhongMaterial map={earthTexture} />
+        <meshPhongMaterial color="#4a90e2" />
       </mesh>
       
       {/* Atmosphere */}
@@ -105,8 +70,7 @@ const EarthGlobe = () => {
         <meshBasicMaterial 
           color="white"
           transparent
-          opacity={0.3}
-          map={new THREE.TextureLoader().load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==')}
+          opacity={0.2}
         />
       </mesh>
     </group>
@@ -154,9 +118,18 @@ const WeatherMarker = ({ point, onSelect }: { point: WeatherPoint; onSelect: (po
   );
 };
 
+const ErrorFallback = () => (
+  <div className="w-full h-full flex items-center justify-center bg-slate-900 text-white">
+    <div className="text-center">
+      <p>3D Globe temporarily unavailable</p>
+      <p className="text-sm text-muted-foreground">Please refresh the page</p>
+    </div>
+  </div>
+);
+
 export const Globe3D = ({ className }: Globe3DProps) => {
   const [selectedPoint, setSelectedPoint] = useState<WeatherPoint | null>(null);
-  const [cameraPosition, setCameraPosition] = useState<[number, number, number]>([0, 0, 5]);
+  const [hasError, setHasError] = useState(false);
 
   // Sample weather data points
   const weatherPoints: WeatherPoint[] = [
@@ -238,46 +211,50 @@ export const Globe3D = ({ className }: Globe3DProps) => {
     setSelectedPoint(point);
   };
 
-  const focusOnPoint = (point: WeatherPoint) => {
-    const phi = (90 - point.lat) * (Math.PI / 180);
-    const theta = (point.lon + 180) * (Math.PI / 180);
-    const radius = 4;
-    
-    const x = radius * Math.sin(phi) * Math.cos(theta);
-    const y = radius * Math.cos(phi);
-    const z = radius * Math.sin(phi) * Math.sin(theta);
-    
-    setCameraPosition([x, y, z]);
-  };
+  useEffect(() => {
+    const handleError = () => setHasError(true);
+    window.addEventListener('error', handleError);
+    return () => window.removeEventListener('error', handleError);
+  }, []);
+
+  if (hasError) {
+    return <ErrorFallback />;
+  }
 
   return (
     <div className={`relative w-full h-full bg-black ${className}`}>
-      <Canvas camera={{ position: cameraPosition, fov: 75 }}>
-        <ambientLight intensity={0.2} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-        
-        <Stars radius={300} depth={60} count={20000} factor={7} saturation={0} />
-        
-        <EarthGlobe />
-        
-        {weatherPoints.map((point) => (
-          <WeatherMarker
-            key={point.id}
-            point={point}
-            onSelect={handlePointSelect}
+      <Suspense fallback={
+        <div className="w-full h-full flex items-center justify-center bg-slate-900 text-white">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+        </div>
+      }>
+        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
+          <ambientLight intensity={0.2} />
+          <pointLight position={[10, 10, 10]} intensity={1} />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          
+          <Stars radius={300} depth={60} count={20000} factor={7} saturation={0} />
+          
+          <EarthGlobe />
+          
+          {weatherPoints.map((point) => (
+            <WeatherMarker
+              key={point.id}
+              point={point}
+              onSelect={handlePointSelect}
+            />
+          ))}
+          
+          <OrbitControls 
+            enableZoom={true}
+            enablePan={false}
+            enableRotate={true}
+            minDistance={3}
+            maxDistance={10}
+            autoRotate={false}
           />
-        ))}
-        
-        <OrbitControls 
-          enableZoom={true}
-          enablePan={false}
-          enableRotate={true}
-          minDistance={3}
-          maxDistance={10}
-          autoRotate={false}
-        />
-      </Canvas>
+        </Canvas>
+      </Suspense>
 
       {/* Weather Point Details */}
       {selectedPoint && (
@@ -296,9 +273,9 @@ export const Globe3D = ({ className }: Globe3DProps) => {
               <Button 
                 variant="cosmic" 
                 size="sm"
-                onClick={() => focusOnPoint(selectedPoint)}
+                onClick={() => setSelectedPoint(null)}
               >
-                Focus
+                Close
               </Button>
             </div>
             
