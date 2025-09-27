@@ -29,7 +29,8 @@ interface MapLocation {
     airQuality?: number;
     uvIndex?: number;
     windSpeed?: number;
-    precipitation?: number;
+    precipitation?: number; // mm in last hour if available
+    cloudCover?: number; // percent 0-100
   };
 }
 
@@ -42,9 +43,11 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
   const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(null);
   const [activeLayer, setActiveLayer] = useState<'temperature' | 'air-quality' | 'precipitation' | 'uv'>('temperature');
   const [zoomLevel, setZoomLevel] = useState(10);
+  const [loadingWeather, setLoadingWeather] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-  // Mock location data - in real app this would come from NASA APIs
-  const locations: MapLocation[] = [
+  // Initial location data - real weather values will be fetched and merged in
+  const initialLocations: MapLocation[] = [
     {
       id: '1',
       name: 'Golden Gate Park',
@@ -52,11 +55,11 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
       type: 'event',
       score: 92,
       data: {
-        temperature: 72,
-        humidity: 55,
+        temperature: undefined,
+        humidity: undefined,
         airQuality: 35,
         uvIndex: 4,
-        windSpeed: 8,
+        windSpeed: undefined,
         precipitation: 5
       }
     },
@@ -67,11 +70,11 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
       type: 'event',
       score: 88,
       data: {
-        temperature: 75,
-        humidity: 62,
+        temperature: undefined,
+        humidity: undefined,
         airQuality: 45,
         uvIndex: 6,
-        windSpeed: 12,
+        windSpeed: undefined,
         precipitation: 15
       }
     },
@@ -82,11 +85,11 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
       type: 'event',
       score: 85,
       data: {
-        temperature: 78,
-        humidity: 45,
+        temperature: undefined,
+        humidity: undefined,
         airQuality: 55,
         uvIndex: 8,
-        windSpeed: 6,
+        windSpeed: undefined,
         precipitation: 2
       }
     },
@@ -97,15 +100,17 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
       type: 'event',
       score: 79,
       data: {
-        temperature: 68,
-        humidity: 70,
+        temperature: undefined,
+        humidity: undefined,
         airQuality: 40,
         uvIndex: 5,
-        windSpeed: 15,
+        windSpeed: undefined,
         precipitation: 25
       }
     }
   ];
+
+  const [locations, setLocations] = useState<MapLocation[]>(initialLocations);
 
   const layers = [
     { id: 'temperature', name: 'Temperature', icon: Thermometer, color: 'from-blue-500 to-red-500' },
@@ -145,6 +150,76 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
     if (zoomLevel > 1) setZoomLevel(prev => prev - 1);
   };
 
+  // OpenWeather key (optional)
+  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY as string | undefined;
+
+  // Helper to fetch weather for a single coordinate
+  async function fetchWeather(lat: number, lon: number) {
+    if (!apiKey) return {} as Partial<MapLocation['data']>;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Weather fetch failed');
+    const data = await res.json();
+    return {
+      temperature: Math.round(data?.main?.temp ?? 0),
+      humidity: data?.main?.humidity ?? undefined,
+      windSpeed: Math.round(data?.wind?.speed ?? 0),
+      // precipitation: try rain.1h then snow.1h (in mm), convert to approximate % visual scale
+      precipitation: typeof data?.rain?.['1h'] === 'number' ? Math.round(Math.min(100, data.rain['1h'] * 10))
+        : typeof data?.snow?.['1h'] === 'number' ? Math.round(Math.min(100, data.snow['1h'] * 10))
+        : 0,
+      cloudCover: typeof data?.clouds?.all === 'number' ? data.clouds.all : undefined
+    } as Partial<MapLocation['data']>;
+  }
+
+  // Load weather for all locations and merge results
+  async function loadAllWeather() {
+    if (!apiKey) return; // silently skip if no key provided
+    setLoadingWeather(true);
+    try {
+      const updates = await Promise.allSettled(
+        locations.map(async (loc) => {
+          const [lon, lat] = loc.coordinates;
+          const wx = await fetchWeather(lat, lon);
+          return { id: loc.id, wx };
+        })
+      );
+
+      setLocations(prev => prev.map(loc => {
+        const hit = updates.find(u => u.status === 'fulfilled' && u.value.id === loc.id) as { status: 'fulfilled'; value: { id: string; wx: Partial<MapLocation['data']> } } | undefined;
+        if (!hit) return loc;
+        return {
+          ...loc,
+          data: {
+            ...loc.data,
+            ...hit.value.wx
+          }
+        };
+      }));
+      setLastUpdated(new Date());
+    } catch {
+      // ignore – keep existing values
+    } finally {
+      setLoadingWeather(false);
+    }
+  }
+
+  // Fetch on mount
+  useEffect(() => {
+    loadAllWeather();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auto-refresh every 5 minutes
+  useEffect(() => {
+    if (!apiKey) return;
+    const id = setInterval(() => {
+      loadAllWeather();
+    }, 5 * 60 * 1000);
+    return () => clearInterval(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Simulate map interaction
   useEffect(() => {
     const handleMapClick = (e: MouseEvent) => {
@@ -173,6 +248,20 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
       >
         {/* Layer Visualization Background */}
         <div className={`absolute inset-0 opacity-20 bg-gradient-to-br ${layers.find(l => l.id === activeLayer)?.color}`} />
+
+        {/* Weather loading indicator */}
+        {loadingWeather && (
+          <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-background/80 px-3 py-1 rounded text-xs border border-white/10">
+            Updating weather...
+          </div>
+        )}
+
+        {/* Last updated timestamp */}
+        {lastUpdated && (
+          <div className="absolute bottom-3 right-3 bg-background/70 px-2 py-1 rounded text-[10px] border border-white/10">
+            Updated {lastUpdated.toLocaleTimeString()}
+          </div>
+        )}
 
         {/* Location Markers */}
         {locations.map((location) => (
@@ -248,6 +337,12 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
                   <div className="flex items-center gap-2">
                     <Cloud className="w-4 h-4 text-blue-600" />
                     <span>{selectedLocation.data.precipitation}%</span>
+                  </div>
+                )}
+                {selectedLocation.data.cloudCover !== undefined && (
+                  <div className="flex items-center gap-2">
+                    <Cloud className="w-4 h-4 text-gray-400" />
+                    <span>Clouds {selectedLocation.data.cloudCover}%</span>
                   </div>
                 )}
               </div>
