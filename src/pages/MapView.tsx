@@ -11,12 +11,14 @@ import {
   Search
 } from "lucide-react";
 import { InteractiveMap } from "@/components/InteractiveMap";
+import { WeatherMap } from "@/components/WeatherMap";
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { Input } from "@/components/ui/input";
 import weatherWiseLogo from "@/assets/aurasphere-logo.png";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
 import heroEarth from "@/assets/hero-earth.jpg";
+import { AnimatedGradient } from "@/components/VisualEffects";
 
 const MapView = () => {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ const MapView = () => {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
+      <AnimatedGradient variant="aurora" className="opacity-20" />
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-5" 
         style={{ backgroundImage: `url(${heroEarth})` }}
@@ -83,9 +86,10 @@ const MapView = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Map */}
-            <div className="lg:col-span-3">
-              <InteractiveMap className="h-[70vh]" />
+            {/* Maps */}
+            <div className="lg:col-span-3 space-y-6">
+              <WeatherMap className="h-auto" />
+              <InteractiveMap className="h-[50vh]" />
             </div>
 
             {/* Sidebar */}

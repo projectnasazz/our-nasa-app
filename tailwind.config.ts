@@ -102,11 +102,73 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': { opacity: '0', transform: 'translateY(10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' }
+				},
+				'fade-out': {
+					'0%': { opacity: '1', transform: 'translateY(0)' },
+					'100%': { opacity: '0', transform: 'translateY(10px)' }
+				},
+				'scale-in': {
+					'0%': { transform: 'scale(0.95)', opacity: '0' },
+					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				'scale-out': {
+					'0%': { transform: 'scale(1)', opacity: '1' },
+					'100%': { transform: 'scale(0.95)', opacity: '0' }
+				},
+				'slide-in-right': {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(0)' }
+				},
+				'slide-out-right': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(100%)' }
+				},
+				'gradient': {
+					'0%, 100%': { 'background-position': '0% 50%' },
+					'50%': { 'background-position': '100% 50%' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-20px)' }
+				},
+				'rain': {
+					'0%': { transform: 'translateY(-100vh)' },
+					'100%': { transform: 'translateY(100vh)' }
+				},
+				'snow': {
+					'0%': { transform: 'translateY(-100vh) rotate(0deg)' },
+					'100%': { transform: 'translateY(100vh) rotate(360deg)' }
+				},
+				'fog': {
+					'0%, 100%': { opacity: '0.1', transform: 'translateX(-100%)' },
+					'50%': { opacity: '0.3', transform: 'translateX(100%)' }
+				},
+				'wind': {
+					'0%': { transform: 'translateX(-100%)' },
+					'100%': { transform: 'translateX(200%)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'fade-out': 'fade-out 0.3s ease-out',
+				'scale-in': 'scale-in 0.2s ease-out',
+				'scale-out': 'scale-out 0.2s ease-out',
+				'slide-in-right': 'slide-in-right 0.3s ease-out',
+				'slide-out-right': 'slide-out-right 0.3s ease-out',
+				'enter': 'fade-in 0.3s ease-out, scale-in 0.2s ease-out',
+				'exit': 'fade-out 0.3s ease-out, scale-out 0.2s ease-out',
+				'gradient': 'gradient 8s ease infinite',
+				'float': 'float 6s ease-in-out infinite',
+				'rain': 'rain 1s linear infinite',
+				'snow': 'snow 3s linear infinite',
+				'fog': 'fog 4s ease-in-out infinite',
+				'wind': 'wind 2s ease-in-out infinite'
 			}
 		}
 	},

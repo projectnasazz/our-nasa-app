@@ -237,17 +237,102 @@ export const InteractiveMap = ({ className }: InteractiveMapProps) => {
       {/* Map Container */}
       <div 
         ref={mapRef}
-        className="relative w-full h-96 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 overflow-hidden"
+        className="relative w-full h-96 overflow-hidden bg-slate-900"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
-            radial-gradient(circle at 40% 80%, rgba(245, 101, 101, 0.2) 0%, transparent 50%)
+            linear-gradient(45deg, rgba(34, 197, 94, 0.1) 0%, transparent 25%),
+            linear-gradient(-45deg, rgba(59, 130, 246, 0.1) 25%, transparent 50%),
+            linear-gradient(135deg, rgba(245, 101, 101, 0.1) 50%, transparent 75%),
+            linear-gradient(-135deg, rgba(168, 85, 247, 0.1) 75%, transparent 100%),
+            radial-gradient(ellipse at center, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 1) 100%)
           `
         }}
       >
-        {/* Layer Visualization Background */}
-        <div className={`absolute inset-0 opacity-20 bg-gradient-to-br ${layers.find(l => l.id === activeLayer)?.color}`} />
+        {/* Weather Layer Visualization */}
+        <div className={`absolute inset-0 opacity-30 bg-gradient-to-br ${layers.find(l => l.id === activeLayer)?.color}`} />
+        
+        {/* Animated Weather Effects */}
+        <div className="absolute inset-0">
+          {activeLayer === 'precipitation' && (
+            <div className="precipitation-effect">
+              {[...Array(50)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-0.5 h-8 bg-blue-400 opacity-60 animate-pulse"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 2}s`,
+                    animationDuration: `${1 + Math.random()}s`
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          
+          {activeLayer === 'temperature' && (
+            <div className="temperature-heatmap">
+              {[...Array(20)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute rounded-full animate-pulse"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    width: `${20 + Math.random() * 40}px`,
+                    height: `${20 + Math.random() * 40}px`,
+                    background: `radial-gradient(circle, ${Math.random() > 0.5 ? 'rgba(239, 68, 68, 0.3)' : 'rgba(59, 130, 246, 0.3)'} 0%, transparent 70%)`,
+                    animationDelay: `${Math.random() * 3}s`
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          
+          {activeLayer === 'uv' && (
+            <div className="uv-rays">
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute bg-gradient-to-r from-transparent via-yellow-400 to-transparent h-0.5 opacity-40 animate-pulse"
+                  style={{
+                    left: '10%',
+                    right: '10%',
+                    top: `${10 + i * 10}%`,
+                    transform: `rotate(${i * 22.5}deg)`,
+                    transformOrigin: 'center',
+                    animationDelay: `${i * 0.2}s`
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        
+        {/* Continental Outlines */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20">
+          {/* North America */}
+          <path
+            d="M 50 120 Q 80 100 120 110 Q 160 115 180 130 Q 200 150 190 180 Q 170 200 140 195 Q 100 190 80 170 Q 60 150 50 120"
+            stroke="rgba(255, 255, 255, 0.3)"
+            strokeWidth="1"
+            fill="none"
+          />
+          {/* Europe */}
+          <path
+            d="M 220 100 Q 240 95 260 100 Q 280 105 290 120 Q 285 135 270 140 Q 250 145 230 135 Q 215 125 220 100"
+            stroke="rgba(255, 255, 255, 0.3)"
+            strokeWidth="1"
+            fill="none"
+          />
+          {/* Asia */}
+          <path
+            d="M 300 110 Q 350 105 400 115 Q 450 120 470 140 Q 460 160 430 165 Q 380 170 340 160 Q 310 150 300 110"
+            stroke="rgba(255, 255, 255, 0.3)"
+            strokeWidth="1"
+            fill="none"
+          />
+        </svg>
 
         {/* Weather loading indicator */}
         {loadingWeather && (
