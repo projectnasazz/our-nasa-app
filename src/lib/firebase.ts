@@ -2,19 +2,19 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// Check if Firebase config is available
+// Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "demo-api-key",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "demo-project.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "demo-project",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "demo-project.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "123456789",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "demo-app-id"
+  apiKey: "AIzaSyAjqjbf8NkcCkZVDi0Rz_9OSdm_R_1PPHE",
+  authDomain: "nasa-weather-app-6f88c.firebaseapp.com",
+  projectId: "nasa-weather-app-6f88c",
+  storageBucket: "nasa-weather-app-6f88c.firebasestorage.app",
+  messagingSenderId: "234217518625",
+  appId: "1:234217518625:web:07098d50845a5d57831560",
+  measurementId: "G-N2YLBLQTDX"
 };
 
-// Check if we have real Firebase config
-const isFirebaseConfigured = import.meta.env.VITE_FIREBASE_API_KEY && 
-  import.meta.env.VITE_FIREBASE_API_KEY !== "your-api-key-here";
+// Firebase is now configured with real credentials
+const isFirebaseConfigured = true;
 
 let app: any = null;
 let auth: any = null;
