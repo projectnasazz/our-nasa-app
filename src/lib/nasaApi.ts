@@ -52,15 +52,22 @@ export interface EarthImageData {
 
 export const getAstronomyPictureOfTheDay = async (): Promise<NASAImageData> => {
   try {
+    console.log('🚀 Fetching NASA APOD data...');
     const response = await fetch(`${NASA_BASE_URL}/planetary/apod?api_key=${NASA_API_KEY}`);
     
+    console.log('🚀 NASA API response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error('NASA APOD fetch failed');
+      console.error('❌ NASA API error:', response.status, response.statusText);
+      throw new Error(`NASA APOD fetch failed: ${response.status} ${response.statusText}`);
     }
     
-    return await response.json();
+    const data = await response.json();
+    console.log('✅ NASA APOD data received:', data);
+    
+    return data;
   } catch (error) {
-    console.error('Error fetching NASA APOD:', error);
+    console.error('❌ Error fetching NASA APOD:', error);
     throw error;
   }
 };

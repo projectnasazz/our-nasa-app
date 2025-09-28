@@ -32,15 +32,20 @@ export interface ForecastData {
 
 export const getCurrentWeather = async (lat: number, lon: number): Promise<WeatherData> => {
   try {
+    console.log('🌡️ Fetching weather data for:', lat, lon);
     const response = await fetch(
       `${OPENWEATHER_BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHER_API_KEY}&units=metric`
     );
     
+    console.log('🌡️ Weather API response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error('Weather data fetch failed');
+      console.error('❌ Weather API error:', response.status, response.statusText);
+      throw new Error(`Weather data fetch failed: ${response.status} ${response.statusText}`);
     }
     
     const data = await response.json();
+    console.log('✅ Weather data received:', data);
     
     return {
       location: data.name,
@@ -60,7 +65,7 @@ export const getCurrentWeather = async (lat: number, lon: number): Promise<Weath
       }
     };
   } catch (error) {
-    console.error('Error fetching weather data:', error);
+    console.error('❌ Error fetching weather data:', error);
     throw error;
   }
 };
