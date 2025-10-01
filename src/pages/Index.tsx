@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Globe, Map, Users, Zap, Shield, BarChart3, Satellite, Eye, Brain, ChevronRight, Play, Calendar, Mountain, Wheat, Settings, User, MessageSquare, Mic, LogIn, UserPlus } from "lucide-react";
 import heroWeather from "@/assets/hero-weather.jpg";
-import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import aeroClimeLogo from "@/assets/aurasphere-logo.png";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
 import aiWeatherBrain from "@/assets/ai-weather-brain.jpg";
 import weatherAnalytics from "@/assets/weather-analytics.jpg";
@@ -18,7 +18,7 @@ import { AuthModal } from "@/components/AuthModal";
 import { UserProfileDropdown } from "@/components/UserProfileDropdown";
 import { useAuth } from "@/contexts/AuthContext";
 const Index = () => {
-  console.log("WeatherWise Index component loaded successfully!");
+  console.log("AeroClime Index component loaded successfully!");
   const navigate = useNavigate();
   const { user } = useAuth();
   const [selectedProfile, setSelectedProfile] = useState<string>("");
@@ -74,10 +74,10 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src={weatherWiseLogo} alt="WeatherWise" className="w-8 h-8" />
+              <img src={aeroClimeLogo} alt="AeroClime" className="w-8 h-8" />
               <div className="flex flex-col">
                 <span className="text-xl font-bold bg-gradient-aurora bg-clip-text text-transparent">
-                  WeatherWise
+                  AeroClime
                 </span>
                 <span className="text-xs text-muted-foreground">Weather Intelligence</span>
               </div>
@@ -547,9 +547,9 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <img src={weatherWiseLogo} alt="WeatherWise" className="w-6 h-6" />
+              <img src={aeroClimeLogo} alt="AeroClime" className="w-6 h-6" />
               <span className="font-semibold bg-gradient-aurora bg-clip-text text-transparent">
-                WeatherWise
+                AeroClime
               </span>
             </div>
             <p className="text-sm text-muted-foreground">

@@ -166,7 +166,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <Card className="glass-card border-white/20">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold bg-gradient-aurora bg-clip-text text-transparent">
-              Welcome to WeatherWise
+              Welcome to AeroClime
             </CardTitle>
             <CardDescription className="text-muted-foreground">
               Sign in to access your personalized weather experience

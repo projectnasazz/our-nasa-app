@@ -57,6 +57,7 @@ export const getCurrentWeather = async (lat: number, lon: number): Promise<Weath
       }
     };
   } catch (error: any) {
+    console.error('Error fetching current weather:', error);
     throw new Error(error?.message || 'Error fetching current weather');
   }
 };
@@ -88,6 +89,7 @@ export const getWeatherByCity = async (city: string): Promise<WeatherData> => {
       }
     };
   } catch (error: any) {
+    console.error('Error fetching weather by city:', error);
     throw new Error(error?.message || 'Error fetching weather by city');
   }
 };
@@ -123,6 +125,7 @@ export const getForecast = async (lat: number, lon: number): Promise<ForecastDat
       };
     });
   } catch (error: any) {
-    throw new Error(error?.message || 'Error fetching forecast data');
+    console.error('Error fetching forecast data:', error);
+    return [];
   }
 };

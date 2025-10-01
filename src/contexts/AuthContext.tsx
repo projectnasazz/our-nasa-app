@@ -80,7 +80,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       return unsubscribe;
     } else {
       // Use mock authentication
-      const savedUser = localStorage.getItem('weatherwise_user');
+      const savedUser = localStorage.getItem('aeroclime_user');
       if (savedUser) {
         setUser(JSON.parse(savedUser));
       }
@@ -106,7 +106,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
         
         setUser(mockUser);
-        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+        localStorage.setItem('aeroclime_user', JSON.stringify(mockUser));
       }
     } catch (error: any) {
       throw new Error(error.message || 'Failed to sign in');
@@ -133,7 +133,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
         
         setUser(mockUser);
-        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+        localStorage.setItem('aeroclime_user', JSON.stringify(mockUser));
       }
     } catch (error: any) {
       throw new Error(error.message || 'Failed to sign up');
@@ -161,7 +161,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
         
         setUser(mockUser);
-        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+        localStorage.setItem('aeroclime_user', JSON.stringify(mockUser));
       }
     } catch (error: any) {
       throw new Error(error.message || 'Failed to sign in with Google');
@@ -189,7 +189,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
         
         setUser(mockUser);
-        localStorage.setItem('weatherwise_user', JSON.stringify(mockUser));
+        localStorage.setItem('aeroclime_user', JSON.stringify(mockUser));
       }
     } catch (error: any) {
       throw new Error(error.message || 'Failed to sign in with Facebook');
@@ -208,7 +208,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         // Use mock authentication
         setUser(null);
-        localStorage.removeItem('weatherwise_user');
+        localStorage.removeItem('aeroclime_user');
       }
     } catch (error: any) {
       throw new Error(error.message || 'Failed to sign out');

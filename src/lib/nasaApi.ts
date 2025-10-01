@@ -61,6 +61,7 @@ export const getAstronomyPictureOfTheDay = async (): Promise<NASAImageData> => {
     const data = await response.json();
     return data;
   } catch (error: any) {
+    console.error('Error fetching NASA APOD:', error);
     throw new Error(error?.message || 'Error fetching NASA APOD');
   }
 };
@@ -76,6 +77,7 @@ export const getEarthImagery = async (lat: number, lon: number, date?: string): 
     // The imagery endpoint may redirect to the actual image. response.url will be the final URL.
     return response.url;
   } catch (error: any) {
+    console.error('Error fetching NASA Earth imagery:', error);
     throw new Error(error?.message || 'Error fetching NASA Earth imagery');
   }
 };
@@ -92,7 +94,8 @@ export const getEarthAssets = async (lat: number, lon: number, date?: string): P
     const data = await response.json();
     return Array.isArray(data?.results) ? data.results : [];
   } catch (error: any) {
-    throw new Error(error?.message || 'Error fetching NASA Earth assets');
+    console.error('Error fetching NASA Earth assets:', error);
+    return [];
   }
 };
 
@@ -105,6 +108,7 @@ export const getNaturalEvents = async (): Promise<any> => {
     }
     return await response.json();
   } catch (error: any) {
-    throw new Error(error?.message || 'Error fetching NASA natural events');
+    console.error('Error fetching NASA natural events:', error);
+    return { events: [] };
   }
 };

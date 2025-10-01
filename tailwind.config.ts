@@ -63,7 +63,7 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// WeatherWise specific colors
+				// AeroClime specific colors
 				'aurora-start': 'hsl(var(--aurora-start))',
 				'aurora-end': 'hsl(var(--aurora-end))',
 				'earth-start': 'hsl(var(--earth-start))',
