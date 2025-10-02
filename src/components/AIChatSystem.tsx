@@ -42,7 +42,7 @@ export const AIChatSystem = ({ onClose, selectedProfile }: AIChatSystemProps) =>
     {
       id: '1',
       type: 'system',
-      content: `Welcome to WeatherWise AI! I'm your intelligent weather assistant. ${
+      content: `Welcome to PlanWeather AI! I'm your intelligent weather assistant. ${
         selectedProfile 
           ? `I see you're interested in ${selectedProfile.replace('-', ' ')} activities.` 
           : ''
@@ -197,7 +197,7 @@ export const AIChatSystem = ({ onClose, selectedProfile }: AIChatSystemProps) =>
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold">WeatherWise AI Assistant</h2>
+              <h2 className="text-xl font-semibold">PlanWeather AI Assistant</h2>
               <p className="text-sm text-muted-foreground">Weather Intelligence • Activity Planning</p>
             </div>
           </div>

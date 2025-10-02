@@ -15,7 +15,7 @@ import { WeatherMap } from "@/components/WeatherMap";
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { Input } from "@/components/ui/input";
-import weatherWiseLogo from "@/assets/aurasphere-logo.png";
+import weatherWiseLogo from "@/assets/planweather-logo.svg";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
 import heroEarth from "@/assets/hero-earth.jpg";
 import { AnimatedGradient } from "@/components/VisualEffects";
@@ -42,10 +42,10 @@ const MapView = () => {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <img src={weatherWiseLogo} alt="WeatherWise" className="w-6 h-6" />
+                <img src={weatherWiseLogo} alt="PlanWeather" className="w-6 h-6" />
                 <div className="flex flex-col">
                   <span className="text-lg font-bold bg-gradient-aurora bg-clip-text text-transparent">
-                    WeatherWise Map
+                    PlanWeather Map
                   </span>
                   <span className="text-xs text-muted-foreground">Interactive Weather Data</span>
                 </div>
