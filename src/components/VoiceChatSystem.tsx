@@ -291,6 +291,16 @@ export const VoiceChatSystem = ({ onClose }: VoiceChatSystemProps) => {
               <li>• Demo uses browser speech synthesis for responses</li>
             </ul>
           </div>
+
+          {/* Back Button */}
+          <Button 
+            variant="outline" 
+            size="lg" 
+            onClick={onClose}
+            className="w-full"
+          >
+            Back to Map
+          </Button>
         </div>
       </Card>
     </div>
