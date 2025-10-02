@@ -20,7 +20,7 @@ import {
 import { AIChatSystem } from "@/components/AIChatSystem";
 import { VoiceChatSystem } from "@/components/VoiceChatSystem";
 import { Globe3D } from "@/components/Globe3D";
-import aeroClimeLogo from "@/assets/aurasphere-logo.png";
+import weatherWiseLogo from "@/assets/aurasphere-logo.png";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
 
 const Globe = () => {
@@ -44,7 +44,7 @@ const Globe = () => {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <img src={aeroClimeLogo} alt="AeroClime" className="w-6 h-6" />
+                <img src={weatherWiseLogo} alt="WeatherWise" className="w-6 h-6" />
                 <div className="flex flex-col">
                   <span className="text-lg font-bold bg-gradient-aurora bg-clip-text text-transparent">
                     3D Globe View

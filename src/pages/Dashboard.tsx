@@ -34,7 +34,7 @@ import { StatusIndicator, NetworkStatus } from "@/components/StatusIndicator";
 import { ParticleField, AnimatedGradient } from "@/components/VisualEffects";
 import { getCurrentWeather, getForecast, WeatherData } from "@/lib/weatherApi";
 import { getAstronomyPictureOfTheDay } from "@/lib/nasaApi";
-import aeroClimeLogo from "@/assets/aurasphere-logo.png";
+import weatherWiseLogo from "@/assets/aurasphere-logo.png";
 import weatherAnalytics from "@/assets/weather-analytics.jpg";
 import weatherSatellite from "@/assets/weather-satellite.jpg";
 import aiWeatherBrain from "@/assets/ai-weather-brain.jpg";
@@ -211,10 +211,10 @@ const Dashboard = () => {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <img src={aeroClimeLogo} alt="AeroClime" className="w-6 h-6" />
+                <img src={weatherWiseLogo} alt="WeatherWise" className="w-6 h-6" />
                 <div className="flex flex-col">
                   <span className="text-lg font-bold bg-gradient-aurora bg-clip-text text-transparent">
-                    AeroClime Dashboard
+                    WeatherWise Dashboard
                   </span>
                   <span className="text-xs text-muted-foreground">Weather Intelligence Center</span>
                 </div>

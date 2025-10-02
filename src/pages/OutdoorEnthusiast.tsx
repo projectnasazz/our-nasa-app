@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mountain, Thermometer, Wind, Sun, Droplets, ArrowLeft, MapPin, Calendar, TrendingUp } from "lucide-react";
-import aeroClimeLogo from "@/assets/aurasphere-logo.png";
+import weatherWiseLogo from "@/assets/aurasphere-logo.png";
 import outdoorActivity from "@/assets/outdoor-activity.jpg";
 import heroWeather from "@/assets/hero-weather.jpg";
 
@@ -78,9 +78,9 @@ const OutdoorEnthusiast = () => {
                 <span className="text-sm text-muted-foreground">Back</span>
               </Link>
               <div className="flex items-center space-x-3">
-                <img src={aeroClimeLogo} alt="AeroClime" className="h-8 w-8" />
+                <img src={weatherWiseLogo} alt="WeatherWise" className="h-8 w-8" />
                 <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  AeroClime
+                  WeatherWise
                 </span>
               </div>
             </div>
