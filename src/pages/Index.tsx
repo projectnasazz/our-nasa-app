@@ -18,7 +18,7 @@ import { AuthModal } from "@/components/AuthModal";
 import { UserProfileDropdown } from "@/components/UserProfileDropdown";
 import { useAuth } from "@/contexts/AuthContext";
 const Index = () => {
-  console.log("AeroClime Index component loaded successfully!");
+  console.log("WeatherWise Index component loaded successfully!");
   const navigate = useNavigate();
   const { user } = useAuth();
   const [selectedProfile, setSelectedProfile] = useState<string>("");
@@ -74,10 +74,10 @@ const Index = () => {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src={weatherWiseLogo} alt="AeroClime" className="w-8 h-8" />
+              <img src={weatherWiseLogo} alt="WeatherWise" className="w-8 h-8" />
               <div className="flex flex-col">
                 <span className="text-xl font-bold bg-gradient-aurora bg-clip-text text-transparent">
-                  AeroClime
+                  WeatherWise
                 </span>
                 <span className="text-xs text-muted-foreground">Weather Intelligence</span>
               </div>
@@ -547,9 +547,9 @@ const Index = () => {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <img src={weatherWiseLogo} alt="AeroClime" className="w-6 h-6" />
+              <img src={weatherWiseLogo} alt="WeatherWise" className="w-6 h-6" />
               <span className="font-semibold bg-gradient-aurora bg-clip-text text-transparent">
-                AeroClime
+                WeatherWise
               </span>
             </div>
             <p className="text-sm text-muted-foreground">
