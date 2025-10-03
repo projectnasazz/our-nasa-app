@@ -91,9 +91,9 @@ const Agriculture = () => {
                 <span className="text-sm text-muted-foreground">Back</span>
               </Link>
               <div className="flex items-center space-x-3">
-                <img src={weatherWiseLogo} alt="PlanWeather" className="h-8 w-8" />
+                <img src={weatherWiseLogo} alt="AeroClime" className="h-8 w-8" />
                 <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  PlanWeather
+                  AeroClime
                 </span>
               </div>
             </div>

@@ -44,7 +44,7 @@ const Globe = () => {
                 <ArrowLeft className="w-5 h-5" />
               </Button>
               <div className="flex items-center gap-3">
-                <img src={weatherWiseLogo} alt="PlanWeather" className="w-6 h-6" />
+                <img src={weatherWiseLogo} alt="AeroClime" className="w-6 h-6" />
                 <div className="flex flex-col">
                   <span className="text-lg font-bold bg-gradient-aurora bg-clip-text text-transparent">
                     3D Globe View

@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* PlanWeather Design System - AI-Powered Weather Intelligence Platform
+/* AeroClime Design System - AI-Powered Weather Intelligence Platform
 All colors MUST be HSL. */
 
 @layer base {
   :root {
-    /* PlanWeather Dark Theme Design System */
+    /* AeroClime Dark Theme Design System */
     --background: 220 27% 8%;
     --foreground: 210 40% 98%;
 
@@ -39,7 +39,7 @@ All colors MUST be HSL. */
 
     --radius: 0.75rem;
 
-    /* PlanWeather specific colors */
+    /* AeroClime specific colors */
     --aurora-start: 210 100% 60%; /* Sky blue */
     --aurora-end: 200 100% 80%;   /* Light blue */
     --earth-start: 220 60% 50%;   /* Storm blue */
@@ -74,7 +74,7 @@ All colors MUST be HSL. */
     --sidebar-ring: 210 100% 60%;
   }
 
-  /* No light mode needed - PlanWeather is dark only */
+  /* No light mode needed - AeroClime is dark only */
 }
 
 @layer base {
@@ -102,7 +102,7 @@ All colors MUST be HSL. */
     @apply bg-card/40 backdrop-blur-xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300;
   }
 
-  /* Beautiful gradients for PlanWeather */
+  /* Beautiful gradients for AeroClime */
   .bg-gradient-aurora {
     background: linear-gradient(135deg, hsl(var(--aurora-start)), hsl(var(--aurora-end)));
   }
